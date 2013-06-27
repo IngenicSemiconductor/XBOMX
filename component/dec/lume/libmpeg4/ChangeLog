@@ -1,0 +1,20 @@
+1. 20100925 2h I frame right. add mpeg4_p1.c for 1h version.
+2. 20100925 10:38 add JXC_decode_picture_header and s->decode_mb. MP OK but xvid_6 no video.
+3. 20100926 xvid_6 has video, DX_1 crc wrong but no problum. msmpeg4 no test.
+4. 20100928 msmpeg4 ok
+5. 20101025 Linear buff base on two core version. Only I frame right.
+6. 20101027 MPEG4_P1_MAIN to 0xF4004000, add hd mc cfg.
+7. 20101027 MPS p-frame right, no idct.
+8. 20101028 1mv backward and 4mv.Fix bug about inter_maxtin parameter and frame height compare.
+9. 20101030 forward and backward combine for hpel, xvid_1_2 right.
+10.20101101 The mc check on behind, xvid_1_1 and mps right.
+11.20101103 Add quarter interpolation.
+12.20101104 Add edge opt
+13.20101108 Fix bug about mb err.
+14.20101112 Add pmon on p1.
+15.20101115 Add variable gp0.
+16.20101116 Add variable gp1.
+17.20101119 Add rota, change dest buff, change mb parameter set.
+18.20101120 Add pmon on p0. 
+19.20101122 Fix bug about gp1_poll, msmpeg4 right.
+20.20101124 Fix bug about last_index set in decode_mb, add allfrm pmon.

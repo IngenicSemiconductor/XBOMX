@@ -1,0 +1,1 @@
+./configure --disable-pthread --disable-asm --extra-cflags="-m32" --extra-ldflags="-m32" --extra-ldflags="-lpthread"

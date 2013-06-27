@@ -1,0 +1,10 @@
+while [ 1 ]
+do
+
+./x264 BUS_176x144_15_orig_01.yuv -o tmp.h264 $1 --bframes 0 --me dia --subme 1 --trellis 0 --weightp 0 --ref 1 --no-deblock --partition none --ssim --qp 26 --no-8x8dct --no-cabac --min-keyint 0 --keyint 3
+
+./x264 ../testlib/yuv/p50_mobcal_ter_1280x720.yuv -o tmp.h264 $1 --bframes 0 --me dia --subme 1 --trellis 0 --weightp 0 --ref 1 --no-deblock --partition none  --ssim --qp 26 --no-8x8dct --no-cabac --min-keyint 0 --keyint 3
+
+for each in `ls ../testlib/yuv/ `; do echo $each; ./x264  ../testlib/yuv/$each -o tmp.h264 $1 --bframes 0 --me dia --subme 1 --trellis 0 --weightp 0 --ref 1 --no-deblock --partition none  --ssim --qp 26 --no-8x8dct --no-cabac --min-keyint 0 --keyint 3; done;
+
+done

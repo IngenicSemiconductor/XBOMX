@@ -1,0 +1,8 @@
+#! /bin/bash
+
+awk 'BEGIN{sp_val="0xF4007FFC";main_switch=0;} \
+{print $0} \
+{where=match($0, "main:"); if (where == 1) {main_switch=1;}} \
+(($0 ~/\.fmask/) && main_switch) {\
+printf("\tla\t$sp, %s\n\tla\t$gp, _gp\n", sp_val); main_switch= 0;} \' $1
+

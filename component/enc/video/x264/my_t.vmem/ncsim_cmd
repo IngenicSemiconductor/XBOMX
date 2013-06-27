@@ -1,0 +1,5 @@
+if [ $1 == 0 ]; then
+ncsim +no_cpu +eyer +no_sys_info +all_map +tcsm0_eyer test
+else
+ncsim +no_cpu +eyer +no_sys_info +all_map +tcsm0_eyer test -input sim.tcl
+fi

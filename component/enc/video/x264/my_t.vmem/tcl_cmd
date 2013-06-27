@@ -1,0 +1,5 @@
+database -open waves -into waves.shm -default ;  
+probe -create -shm -all -variable -depth all; 
+#probe -create -shm test.p0.j1_sub -all -variable -depth all -memories; 
+run
+exit

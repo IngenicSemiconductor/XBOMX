@@ -1,0 +1,150 @@
+# SimVision Command Script (Sat Dec 04 10:32:13 CST 2010)
+#
+# Version 08.10.s007
+#
+# You can restore this configuration with:
+#
+#     simvision -input /icdev/users/yzhai/work/tsuit/x264.r1376.saved_4/my_t.vmem/simvision.svcf
+#  or simvision -input /icdev/users/yzhai/work/tsuit/x264.r1376.saved_4/my_t.vmem/simvision.svcf database1 database2 ...
+#
+
+
+#
+# preferences
+#
+preferences set toolbar-txe_waveform_toggle-WaveWindow {
+  usual
+  position -pos 1
+}
+preferences set toolbar-WaveZoom-WaveWindow {
+  usual
+  position -pos 1
+}
+
+#
+# databases
+#
+array set dbNames ""
+set dbNames(usedName1) waves
+set dbNames(realName1) [ database require waves -hints {
+	file ./waves.shm/waves.trn
+	file /icdev/users/yzhai/work/tsuit/x264.r1376.saved_4/my_t.vmem/waves.shm/waves.trn
+}]
+if {$dbNames(realName1) == ""} {
+    set dbNames(realName1) $dbNames(usedName1)
+}
+
+#
+# groups
+#
+catch {group new -name sad_pipe -overlay 0}
+catch {group new -name cost -overlay 0}
+
+group using sad_pipe
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_dreq_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_dtag_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_ddp0_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_drdy_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_rsub_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_acc0_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_acc1_r \
+    test.vpu.motion.motion_ch1.ch1_esti.pipe_cost_r
+
+group using cost
+group set -overlay 0
+group set -comment {}
+group clear 0 end
+
+group insert \
+    {test.vpu.motion.motion_ch1.ch1_esti.new_cost[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.cost_judg[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.cost_up[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.cost_left[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.cost_right[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.cost_down[15:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.esti_pmvx[7:0]} \
+    {test.vpu.motion.motion_ch1.ch1_esti.esti_pmvy[7:0]}
+
+#
+# cursors
+#
+set time 1547370.37ns
+if {[catch {cursor new -name  TimeA -time $time}] != ""} {
+    cursor set -using TimeA -time $time
+}
+
+#
+# markers
+#
+set time 1547370496ps
+if {[catch {marker new -name  {Marker 1} -time $time}] != ""} {
+    marker set -using {Marker 1} -time $time
+}
+
+#
+# mmaps
+#
+mmap new -reuse -name {Boolean as Logic} -radix %b -contents {
+{%c=FALSE -edgepriority 1 -shape low}
+{%c=TRUE -edgepriority 1 -shape high}
+}
+mmap new -reuse -name {Example Map} -radix %x -contents {
+{%b=11???? -bgcolor orange -label REG:%x -linecolor yellow -shape bus}
+{%x=1F -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=2C -bgcolor red -label ERROR -linecolor white -shape EVENT}
+{%x=* -label %x -linecolor gray -shape bus}
+}
+
+#
+# Design Browser windows
+#
+if {[catch {window new WatchList -name "Design Browser 1" -geometry 700x500+40+67}] != ""} {
+    window geometry "Design Browser 1" 700x500+40+67
+}
+window target "Design Browser 1" on
+browser using {Design Browser 1}
+browser set \
+    -scope waves::test.vpu.motion.motion_ch1.ch1_esti
+browser yview see waves::test.vpu.motion.motion_ch1.ch1_esti
+browser timecontrol set -lock 0
+
+#
+# Waveform windows
+#
+if {[catch {window new WaveWindow -name "Waveform 1" -geometry 1010x600+63+18}] != ""} {
+    window geometry "Waveform 1" 1010x600+63+18
+}
+window target "Waveform 1" on
+waveform using {Waveform 1}
+waveform sidebar visibility partial
+waveform set \
+    -primarycursor TimeA \
+    -signalnames name \
+    -signalwidth 175 \
+    -units ns \
+    -valuewidth 75
+cursor set -using TimeA -time 1,547,370.37ns
+waveform baseline set -time 0
+
+set id [waveform add -signals [list {waves::test.vpu.motion.motion_tdd.tdd_fsm_r[2:0]} \
+	{waves::test.vpu.motion.motion_ch1.ch1_esti.esti_fsm_r[3:0]} ]]
+set groupId [waveform add -groups sad_pipe]
+
+set groupId [waveform add -groups cost]
+
+
+waveform xview limits 1547345.508ns 1547386.328ns
+
+#
+# Console window
+#
+console set -windowname Console
+
+# Restore the proper database name(s)
+
+::database set -using $dbNames(usedName1) -name $dbNames(realName1)

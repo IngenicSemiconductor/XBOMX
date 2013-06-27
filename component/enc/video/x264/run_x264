@@ -1,0 +1,7 @@
+make && ./$1 -o test.mkv --profile main $2 $3 --me dia --subme 1 --partitions none --bframes 0 --weightp 0 --ref 1 --trellis 0 --no-deblock --sync-lookahead 0 --rc-lookahead 0 --ratetol 1.0 --crf 23 --qcomp 0.6 --ssim --psnr $4 $5 $6 $7 $8 $9 $10 --aq-mode 0 --qp 28 --no-8x8dct 
+#--eyer-debug 0 --bug-f 1 --bug-mbx 2 --bug-mby 1000 --eyer-debug 0 --eyer-en 0 
+#--eyer-wave 0
+mv test.mkv h264.mkv -f
+#--eyer-en 0
+#--eyer-en 0
+#--bug-f 1 --bug-mbx 4 --bug-mby 0 --eyer-debug 0

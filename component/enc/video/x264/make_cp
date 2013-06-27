@@ -1,0 +1,17 @@
+cscope-indexer -r
+make;
+
+#scp x264 x264_p1.bin gjwang@192.168.1.20:/nfsroot/root26/home/gjwang
+#./scp.sh x264 192.168.1.20 /nfsroot/root26/home/gjwang gjwang 123456
+
+expect -c "
+        set timeout 1200;
+#        spawn /usr/bin/scp -r $1 $4@$2:$3
+        spawn /usr/bin/scp x264 x264_p1.bin gjwang@192.168.1.20:/nfsroot/root26/home/gjwang
+        expect {
+                \"*yes/no*\" {send \"yes\r\"; exp_continue}
+#                \"*password*\" {send \"$5\r\";}
+                \"*password*\" {send \"123456\r\";}
+
+        }
+expect eof;"
