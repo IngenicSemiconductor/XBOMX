@@ -55,8 +55,8 @@ LOCAL_C_INCLUDES := \
 	external/aac/libMpegTPDec/include \
 	external/aac/libSBRdec/include \
 	external/aac/libSYS/include \
-	hardware/ingenic/xb4780/libdmmu \
-	hardware/ingenic/xb4780/libjzipu \
+	hardware/ingenic/xb4780/core/libdmmu \
+	hardware/ingenic/xb4780/core/libjzipu \
 	hardware/ingenic/xb4780/xbdemux/lume/stream \
 	hardware/ingenic/xb4780/xbdemux/lume/libmpdemux \
 	hardware/ingenic/xb4780/xbomx/component/common \

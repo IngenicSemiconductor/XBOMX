@@ -22,7 +22,12 @@
 #include <gui/Surface.h>
 #include <ui/ANativeObjectBase.h>
 #include <ui/GraphicBufferMapper.h>
+
+#if 0
+/* Not available in 4.3 and not likley needed in 4.2. */
 #include <gui/ISurfaceTexture.h>
+#endif
+
 #include <system/window.h>
 #include <utils/Singleton.h>
 #include "HardwareRenderer_FrameBuffer.h"

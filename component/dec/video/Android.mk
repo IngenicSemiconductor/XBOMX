@@ -46,8 +46,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/./include \
 	frameworks/native/include/utils \
 	frameworks/native/include/media/openmax \
 	frameworks/native/include/media/hardware   \
-	hardware/ingenic/xb4780/libdmmu \
-	hardware/ingenic/xb4780/libjzipu \
+	hardware/ingenic/xb4780/core/libdmmu \
+	hardware/ingenic/xb4780/core/libjzipu \
         hardware/ingenic/xb4780/xbdemux/lume/stream \
         hardware/ingenic/xb4780/xbdemux/lume/libmpdemux \
 	hardware/ingenic/xb4780/xbomx/component/common \
