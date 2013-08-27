@@ -275,8 +275,8 @@ void HardwareRenderer_FrameBuffer::render(RenderData* data)
   if(mUseJzBuf != 1)//when non 420B.
     jz_dcache_wb();
   
-  //mDstStride = buf->stride;
-  mDstStride = (mBuffer_Width + 31) & 0xffffffe0;
+  //mDstStride must be multiple of 32
+  mDstStride = (mBuffer_Width + 31) & 0xFFFFFFE0;
 
   initIPUSourceBuffer(data->input, mWidth, mHeight, mCropLeft, mCropTop, mCropRight, mCropBottom);
   

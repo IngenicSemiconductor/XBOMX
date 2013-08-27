@@ -242,11 +242,11 @@ OMX_ERRORTYPE HardAVCEncoder::initEncParams() {
     mNALUHasStartCode = 0;
     mEncArgQP = 0;
 
-    if (mVideoWidth % 16 != 0 || mVideoHeight % 16 != 0) {
-        ALOGE("Video frame size %dx%d must be a multiple of 16",
-	      mVideoWidth, mVideoHeight);
-        return OMX_ErrorBadParameter;
-    }
+    // if (mVideoWidth % 16 != 0 || mVideoHeight % 16 != 0) {
+    //     ALOGE("Video frame size %dx%d must be a multiple of 16",
+    // 	      mVideoWidth, mVideoHeight);
+    //     return OMX_ErrorBadParameter;
+    // }
 
     i_frame = 0;
     x264_param_default( &mParam );
@@ -348,9 +348,10 @@ void HardAVCEncoder::initPorts() {
     OMX_PARAM_PORTDEFINITIONTYPE def;
     InitOMXParams(&def);
 
-    //    ALOGE("%d+++++++++++%d        %d", __LINE__, mVideoWidth, mVideoHeight);
-
-    const size_t kInputBufferSize = (mVideoWidth * mVideoHeight * 3) >> 1;//yuv420 tile from camera
+    int mbWidth = (mVideoWidth + 15)>>4;
+    int mbHeight = (mVideoHeight + 15)>>4;
+    const size_t kInputBufferSize = (mbWidth * mbHeight * 3) << 7;//yuv420 tile from camera
+    ALOGV("mVideoWidth=%d,mVideoHeight=%d,kInputBufferSize=%d",mVideoWidth,mVideoHeight,kInputBufferSize);
 
     const size_t kOutputBufferSize = 512*1024;
 
@@ -746,6 +747,7 @@ void HardAVCEncoder::onQueueFilled(OMX_U32 portIndex) {
 	      break;
 	    }
 	  }
+
 	  ++mNumInputFrames;
 	  EL("outHeader->nFilledLen=%d",outHeader->nFilledLen);
 	  mSpsPpsHeaderReceived = true;
@@ -796,9 +798,12 @@ void HardAVCEncoder::onQueueFilled(OMX_U32 portIndex) {
 
 	/*encode a frame*/
 	{
+	  mVideoWidth;
+	  int inHeaderSize = inHeader->nFilledLen - inHeader->nOffset;
+	  if (inHeaderSize != mVideoWidth * mVideoHeight * 3 / 2)
+	    ALOGW("x264 [warring]: inHeaderSize != encoder actual size %d %d", inHeaderSize, mVideoWidth * mVideoHeight * 3 / 2);
 	  dmmu_mem_info meminfo;
-	  meminfo.size=inHeader->nFilledLen - inHeader->nOffset;
-          // ALOGI("dmmu_map_user_memory %d", meminfo.size);
+	  meminfo.size=inHeaderSize;
 	  meminfo.vaddr=inputData;
 	  meminfo.pages_phys_addr_table=NULL;
 	  int err=dmmu_map_user_memory(&meminfo);

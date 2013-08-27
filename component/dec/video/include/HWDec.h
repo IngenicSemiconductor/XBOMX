@@ -85,10 +85,10 @@ private:
     enum {
         kInputPortIndex   = 0,
         kOutputPortIndex  = 1,
-        kNumInputBuffers  = 8,
+        kNumInputBuffers  = 16,
         //kNumOutputBuffers = 2,
 	//kNumInputBuffers = 4,
-	kNumOutputBuffers = 3,
+	kNumOutputBuffers = 16,
     };
 
     enum EOSStatus {

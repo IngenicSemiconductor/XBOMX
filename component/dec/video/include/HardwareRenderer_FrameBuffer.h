@@ -42,8 +42,8 @@
 #define ClockWiseRot_270    2
 
 #define HAL_PIXEL_FORMAT_JZ_YUV_420_P 0x47700001 // YUV_420_P
+ 
 #define HAL_PIXEL_FORMAT_JZ_YUV_420_B 0x47700002 // YUV_420_P BLOCK MODE
-
 
 namespace android {
 

@@ -545,7 +545,7 @@ void HWDec::onQueueFilled(OMX_U32 portIndex) {
       			       &frameCount,
       			       (OMX_BOOL)1,
       			       &drop_frame);
-    //mPts=((PlanarImage*)outBuf)->pts;
+    mPts=((PlanarImage*)outBuf)->pts;
     //ALOGE("mPts:%lld", mPts);
     if(ret == OMX_TRUE){
       if (((int)PortParam.format.video.nFrameWidth != mCropWidth )
