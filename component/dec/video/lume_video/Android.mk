@@ -21,7 +21,7 @@ LOCAL_C_INCLUDES := \
 		$(LOCAL_PATH)/../../lume	                   \
 		$(LOCAL_PATH)/../../	                   \
 		$(LOCAL_PATH)/../../lume/libjzcommon         \
-		hardware/ingenic/xb4780/libdmmu \
+		hardware/ingenic/xb4780/core/libdmmu \
 		hardware/ingenic/xb4780/xbdemux/lume/stream \
 		hardware/ingenic/xb4780/xbdemux/lume/libmpdemux \
 		$(LOCAL_PATH)/../include
