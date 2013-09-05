@@ -488,7 +488,7 @@ void HWDec::onQueueFilled(OMX_U32 portIndex) {
   status_t err = OK;
   bool portSettingsChanged = false;
   while ((mEOSStatus != INPUT_DATA_AVAILABLE || !inQueue.empty())
-	 && outQueue.size()  >= kNumOutputBuffers - 1) {
+	 && !outQueue.empty()) {
 
     if (mEOSStatus == INPUT_EOS_SEEN) {
       drainAllOutputBuffers();
