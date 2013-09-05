@@ -54,7 +54,7 @@ LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/x264/common \
     $(LOCAL_PATH)/x264/encoder \
     $(LOCAL_PATH)/x264/soc \
-    $(TOP)/hardware/ingenic/xb4780/libdmmu 
+    $(TOP)/hardware/ingenic/xb4780/core/libdmmu
 
 LOCAL_CFLAGS := \
     -DOSCL_IMPORT_REF= -DOSCL_UNUSED_ARG= -DOSCL_EXPORT_REF=
